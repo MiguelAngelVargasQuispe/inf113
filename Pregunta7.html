@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Número Capicúa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verificar si un Número es Capicúa</h1>
+    <form id="palindromeCheckForm">
+        <label for="number">Ingrese un número entero positivo:</label>
+        <input type="number" id="number" name="number" min="0" required>
+
+        <button type="submit">Verificar</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('palindromeCheckForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            // Obtener el número
+            const number = document.getElementById('number').value;
+
+            if (number < 0 || isNaN(number)) {
+                document.getElementById('result').textContent = 'Por favor, ingrese un número entero positivo.';
+                return;
+            }
+
+            // Función para verificar si es capicúa
+            function isPalindrome(num) {
+                const strNum = num.toString();
+                const reversedStr = strNum.split('').reverse().join('');
+                return strNum === reversedStr;
+            }
+
+            // Verificar si el número es capicúa
+            const isCapicua = isPalindrome(number);
+
+            // Mostrar el resultado
+            if (isCapicua) {
+                document.getElementById('result').innerHTML = `
+                    <p>Número ingresado: ${number}</p>
+                    <p>Resultado: <strong>ES CAPICÚA</strong></p>
+                `;
+            } else {
+                document.getElementById('result').innerHTML = `
+                    <p>Número ingresado: ${number}</p>
+                    <p>Resultado: <strong>NO ES CAPICÚA</strong></p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

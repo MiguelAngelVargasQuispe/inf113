@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Serie de Fibonacci</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generador de la Serie de Fibonacci</h1>
+    <form id="fibonacciForm">
+        <label for="numTerms">Ingrese la cantidad de términos:</label>
+        <input type="number" id="numTerms" name="numTerms" min="1" required>
+        <button type="submit">Generar</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('fibonacciForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            // Obtener el número de términos
+            const numTerms = parseInt(document.getElementById('numTerms').value);
+
+            if (isNaN(numTerms) || numTerms < 1) {
+                document.getElementById('result').textContent = 'Por favor, ingrese un número válido.';
+                return;
+            }
+
+            // Generar la serie de Fibonacci
+            const fibonacci = [];
+            for (let i = 0; i < numTerms; i++) {
+                if (i === 0 || i === 1) {
+                    fibonacci.push(i);
+                } else {
+                    fibonacci.push(fibonacci[i - 1] + fibonacci[i - 2]);
+                }
+            }
+
+            // Mostrar el resultado
+            document.getElementById('result').textContent = `Serie de Fibonacci: ${fibonacci.join(', ')}`;
+        });
+    </script>
+</body>
+</html>

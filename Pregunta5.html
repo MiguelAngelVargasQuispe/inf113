@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotar Dígitos Pares</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rotar Dígitos Pares de un Número</h1>
+    <form id="rotateEvenDigitsForm">
+        <label for="number">Ingrese un número (mínimo 6 dígitos):</label>
+        <input type="number" id="number" name="number" required>
+
+        <button type="submit">Rotar</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('rotateEvenDigitsForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            // Obtener el número
+            const number = document.getElementById('number').value;
+
+            if (number.length < 6 || isNaN(number)) {
+                document.getElementById('result').textContent = 'Por favor, ingrese un número válido con al menos 6 dígitos.';
+                return;
+            }
+
+            // Función para rotar los dígitos pares a la derecha
+            function rotateEvenDigitsRight(num) {
+                const strNum = num.toString();
+                const evenDigits = [];
+                const resultArray = strNum.split('');
+
+                // Extraer los dígitos pares
+                for (const digit of strNum) {
+                    if (parseInt(digit) % 2 === 0) {
+                        evenDigits.push(digit);
+                    }
+                }
+
+                // Rotar los dígitos pares
+                if (evenDigits.length > 1) {
+                    evenDigits.unshift(evenDigits.pop()); // Rotar hacia la derecha
+                }
+
+                // Reemplazar los dígitos pares en el número original
+                let evenIndex = 0;
+                for (let i = 0; i < resultArray.length; i++) {
+                    if (parseInt(resultArray[i]) % 2 === 0) {
+                        resultArray[i] = evenDigits[evenIndex++];
+                    }
+                }
+
+                return resultArray.join('');
+            }
+
+            // Calcular el número rotado
+            const rotatedNumber = rotateEvenDigitsRight(number);
+
+            // Mostrar el resultado
+            document.getElementById('result').innerHTML = `
+                <p>Número original: ${number}</p>
+                <p>Número rotado: ${rotatedNumber}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

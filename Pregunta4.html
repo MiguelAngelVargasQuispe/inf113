@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotar Número</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rotar un Número</h1>
+    <form id="rotateForm">
+        <label for="number">Ingrese un número:</label>
+        <input type="number" id="number" name="number" required>
+
+        <label for="rotations">Ingrese la cantidad de rotaciones:</label>
+        <input type="number" id="rotations" name="rotations" min="1" required>
+
+        <button type="submit">Rotar</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('rotateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            // Obtener el número y la cantidad de rotaciones
+            const number = document.getElementById('number').value;
+            const rotations = parseInt(document.getElementById('rotations').value);
+
+            if (isNaN(rotations) || rotations < 1 || number === "") {
+                document.getElementById('result').textContent = 'Por favor, ingrese valores válidos.';
+                return;
+            }
+
+            // Función para rotar a la izquierda
+            function rotateLeft(num, rot) {
+                const strNum = num.toString();
+                const len = strNum.length;
+                const effectiveRot = rot % len;
+                return strNum.slice(effectiveRot) + strNum.slice(0, effectiveRot);
+            }
+
+            // Función para rotar a la derecha
+            function rotateRight(num, rot) {
+                const strNum = num.toString();
+                const len = strNum.length;
+                const effectiveRot = rot % len;
+                return strNum.slice(len - effectiveRot) + strNum.slice(0, len - effectiveRot);
+            }
+
+            // Calcular las rotaciones
+            const leftRotation = rotateLeft(number, rotations);
+            const rightRotation = rotateRight(number, rotations);
+
+            // Mostrar el resultado
+            document.getElementById('result').innerHTML = `
+                <p>Rotación a la izquierda: ${leftRotation}</p>
+                <p>Rotación a la derecha: ${rightRotation}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

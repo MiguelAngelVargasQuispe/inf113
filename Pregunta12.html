@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Palíndromo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        #result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verificar Palíndromo</h2>
+        <form id="palindromeForm">
+            <label for="inputWord">Introduce una palabra:</label>
+            <input type="text" id="inputWord" name="inputWord" required>
+            <button type="button" onclick="checkPalindrome()">Verificar</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkPalindrome() {
+            const inputWord = document.getElementById('inputWord').value.trim();
+
+            if (inputWord === '') {
+                document.getElementById('result').innerHTML = 'Por favor, introduce una palabra válida.';
+                return;
+            }
+
+            // Convertir la palabra a minúsculas y eliminar espacios y caracteres no alfabéticos
+            const sanitizedWord = inputWord.toLowerCase().replace(/[^a-z0-9]/g, '');
+            const reversedWord = sanitizedWord.split('').reverse().join('');
+
+            // Verificar si es un palíndromo
+            if (sanitizedWord === reversedWord) {
+                document.getElementById('result').innerHTML = 
+                    `<strong>"${inputWord}"</strong> es un palíndromo.`;
+            } else {
+                document.getElementById('result').innerHTML = 
+                    `<strong>"${inputWord}"</strong> no es un palíndromo.`;
+            }
+        }
+    </script>
+</body>
+</html>

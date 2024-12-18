@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dígitos Repetidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mostrar Dígitos Repetidos</h1>
+    <form id="repeatedDigitsForm">
+        <label for="number">Ingrese un número (mayor a 100):</label>
+        <input type="number" id="number" name="number" min="101" required>
+
+        <button type="submit">Mostrar Dígitos Repetidos</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('repeatedDigitsForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            // Obtener el número
+            const number = document.getElementById('number').value;
+
+            if (number <= 100 || isNaN(number)) {
+                document.getElementById('result').textContent = 'Por favor, ingrese un número mayor a 100.';
+                return;
+            }
+
+            // Función para encontrar dígitos repetidos
+            function findRepeatedDigits(num) {
+                const digitCount = {};
+                const repeatedDigits = [];
+
+                // Contar ocurrencias de cada dígito
+                for (const digit of num.toString()) {
+                    digitCount[digit] = (digitCount[digit] || 0) + 1;
+                }
+
+                // Identificar los dígitos repetidos
+                for (const [digit, count] of Object.entries(digitCount)) {
+                    if (count > 1) {
+                        repeatedDigits.push(digit);
+                    }
+                }
+
+                return repeatedDigits;
+            }
+
+            // Encontrar los dígitos repetidos
+            const repeated = findRepeatedDigits(number);
+
+            // Mostrar el resultado
+            if (repeated.length > 0) {
+                document.getElementById('result').innerHTML = `
+                    <p>Número ingresado: ${number}</p>
+                    <p>Dígitos repetidos: ${repeated.join(', ')}</p>
+                `;
+            } else {
+                document.getElementById('result').innerHTML = `
+                    <p>Número ingresado: ${number}</p>
+                    <p>No hay dígitos repetidos.</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
